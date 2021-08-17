@@ -18,7 +18,7 @@ public class EndangeredAnimals extends Animal implements SaveDelete {
 
     public static List<EndangeredAnimals> all() {
         String sql = "SELECT * FROM animals WHERE type=:type;";
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             return con.createQuery(sql)
                     .addParameter("type", ANIMAL_TYPE)
                     .throwOnMappingFailure(false)
@@ -29,7 +29,7 @@ public class EndangeredAnimals extends Animal implements SaveDelete {
 
     public static List<EndangeredAnimals> allAnimals() {
         String sql = "SELECT * FROM animals;";
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             return con.createQuery(sql)
                     .throwOnMappingFailure(false)
                     .executeAndFetch(EndangeredAnimals.class);
@@ -37,7 +37,7 @@ public class EndangeredAnimals extends Animal implements SaveDelete {
     }
 
     public static EndangeredAnimals find(int id) {
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             String sql = "SELECT * FROM animals where id = :id;";
 
             EndangeredAnimals animal = con.createQuery(sql).addParameter("id", id)
@@ -50,7 +50,7 @@ public class EndangeredAnimals extends Animal implements SaveDelete {
 
     @Override
     public void save() {
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             String sql = "INSERT INTO animals (name, age, health, type) VALUES (:name, :age,:health, :type)";
             this.id = (int) con.createQuery(sql, true).addParameter("name", this.name)
                     .addParameter("age", this.age)
@@ -63,7 +63,7 @@ public class EndangeredAnimals extends Animal implements SaveDelete {
 
     @Override
     public void delete() {
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             String sql = "DELETE FROM animals WHERE id = :id;";
             con.createQuery(sql).addParameter("id", this.id).executeUpdate();
 
