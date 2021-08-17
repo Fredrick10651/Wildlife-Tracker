@@ -18,7 +18,7 @@ public class Sightings implements SaveDelete {
 
     public Sightings(String rangerName, int animalId, String location) {
         if (rangerName.equals("")) {
-            throw new IllegalArgumentException("Please enter Ranger name.");
+            throw new IllegalArgumentException("ranger name.");
         }
         this.rangerName = rangerName;
         this.animalId = animalId;
@@ -70,13 +70,13 @@ public class Sightings implements SaveDelete {
 
     public static List<Sightings> all() {
         String sql = "SELECT * FROM sightings;";
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             return con.createQuery(sql).throwOnMappingFailure(false).executeAndFetch(Sightings.class);
         }
     }
 
     public static Sightings find(int id) {
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             String sql = "SELECT * FROM sightings where id = :id;";
             Sightings sighting = con.createQuery(sql).addParameter("id", id).throwOnMappingFailure(false).executeAndFetchFirst(Sightings.class);
             return sighting;
@@ -86,7 +86,7 @@ public class Sightings implements SaveDelete {
 
     @Override
     public void save() {
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             String sql = "INSERT INTO sightings (rangerName, animalId, location, sightingDate) VALUES (:rangerName, :animalId, :location, :sightingDate);";
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("rangerName", this.rangerName)
@@ -103,7 +103,7 @@ public class Sightings implements SaveDelete {
 
     @Override
     public void delete() {
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             String sql = "DELETE FROM sightings WHERE id = :id;";
             con.createQuery(sql)
                     .addParameter("id", this.id)
