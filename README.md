@@ -4,7 +4,7 @@
 Mutsotso Fredrick Angose.
 
 ### Description
-
+This is an app that tracks the different types of wild animals both endangered and non-endangered present in a specific forest.The data is collected by game rangers and stored in the forest service department.
 
 ## Prerequisites & setup
 ### Prerequisites
