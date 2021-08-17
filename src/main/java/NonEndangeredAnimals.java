@@ -15,7 +15,7 @@ public class NonEndangeredAnimals extends Animal implements SaveDelete {
 
     public static List<NonEndangeredAnimals> all() {
         String sql = "SELECT * FROM animals WHERE type=:type; ";
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             return con.createQuery(sql)
                     .addParameter("type", ANIMAL_TYPE)
                     .throwOnMappingFailure(false)
@@ -25,7 +25,7 @@ public class NonEndangeredAnimals extends Animal implements SaveDelete {
     }
 
     public static NonEndangeredAnimals find(int id) {
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             String sql = "SELECT * FROM animals WHERE id = :id;";
             NonEndangeredAnimals animal = con.createQuery(sql).addParameter("id", id).throwOnMappingFailure(false).executeAndFetchFirst(NonEndangeredAnimals.class);
             return animal;
@@ -34,7 +34,7 @@ public class NonEndangeredAnimals extends Animal implements SaveDelete {
 
     @Override
     public void save() {
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             String sql = "INSERT INTO animals (name, age, health, type) VALUES (:name, :age,:health, :type)";
             this.id = (int) con.createQuery(sql, true).addParameter("name", this.name)
                     .addParameter("age", this.age)
@@ -47,7 +47,7 @@ public class NonEndangeredAnimals extends Animal implements SaveDelete {
 
     @Override
     public void delete() {
-        try (Connection con = DB.sql2o.open()) {
+        try (Connection con = Database.sql2o.open()) {
             String sql = "DELETE FROM animals WHERE id = :id;";
             con.createQuery(sql).addParameter("id", this.id).executeUpdate();
 
