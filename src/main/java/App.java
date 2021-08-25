@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static spark.Spark.*;
 import static javax.swing.JOptionPane.showMessageDialog;
+import static spark.Spark.*;
 
 public class App {
     private static int getHerokuAssignedPort() {

@@ -7,7 +7,7 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-class SightingTest {
+public class SightingsTest {
     @Rule
     public DatabaseRule database = new DatabaseRule();
 
